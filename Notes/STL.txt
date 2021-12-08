@@ -1,0 +1,62 @@
+This is for my reference. Here I maintain all useful methods and tips to use containers from STL. 
+0) string s;
+	1) s.length(); //gives length of string. s.size() gives length of string in bytes. Subtle but important.
+	2) s.substr(pointer, length of substring); // returns substring of string with a start pointer. 
+
+1) vector<type T> v;
+	1) v.push_back(type T) to add elements to the vector
+	2) v.size() to find the number of elements currently in the vector
+	3) vector<type T>::iterator it = v.begin(); to initialize iterator to v.
+	4) v.erase(it); // deletes element at given index passed as an iterator to the vector.
+	5) v.rbegin(); // returns a reverse iterator starting from the end of vector.
+	6) Custom sort for vector containing other objects (instead of basic user types like int, string, etc.)
+	
+			sort(v.begin(), v.end(), 
+				[](type T1, type T2, ... args) { // lambda function to define custom comparator for sorting a vector of objects.
+					// code for comparison goes here. 
+					return (some expression evaluating to a bool);
+				}
+			);
+
+	7) to initialize vector of size n with a given value, use 
+
+	   		vector<type T> v(n, value); // size n is the 1st parameter and value is the 2nd.
+
+	8) To insert multiple elements at once:
+	
+			v.insert(v.end(), {...elements go here...}); 
+
+2) queue<type T> q;
+	1) q.push(type T) pushes said element into queue.
+	2) q.front() returns value at front of queue (doesn't delete it. see pop() for that)
+	3) q.pop() deletes element in the front (doesn't return anything. see front() for that)
+	4) q.size() returns number of elements in queue.
+	5) q.empty() returns bool value
+
+3) stack<type T> st;
+
+4) unordered_map<type T1, type T2> m; // basically a hashmap. Look up time complexity is O(1) on average.
+	1) if (m.find(element) == m.end()) { // code goes here. } // to check if said element is in the map or not.
+
+5) unordered_set<type T> s;
+
+6) priority_queue<type T, vector<type T>, customComparator> pq;
+	1) custom comparator needed when keeping a head of custom objects. The comparator must be defined inside a struct/class like so:
+		
+		struct customComparator {
+    		bool operator()(customClass c1, customClass c2) {
+        		// return "true" if "p1" is ordered
+        		// before "p2", for example:
+        		return (some expression relating the two parameters passed into it.);
+    		}
+		};
+	2) pq.push(); // to push an element into the queue.
+	3) pq.pop(); // remove topmost element from queue. NO RETURN. Only DELETE.
+	4) pq.top(); // returns topmost element from queue.
+	5) pq.size(); 
+	6) pq.empty(); 
+	7) priority_queue<int, vector<int>, greater<int>> pq; // for min-head instead of max-heap.
+
+7) pair<type T1, type T2> p; // use this if you plan on creating a hashmap with vectors and then want to sort it later.
+	1. T1 f = p.first; 
+	2. T2 s = p.second;
